@@ -25,6 +25,25 @@ namespace AcmeCorporationWebsite.Controllers
         {
             return View();
         }
-        
+        // Post
+        [HttpPost]
+        [ValidateAntiForgeryToken] // Prevent cross-site request forgery
+        public IActionResult SubmitForm(SubmissionModel obj)
+        {
+            // TODO: add custom validation for product serial number
+            if (obj.ProductSerialNumber == "123")
+            {
+                ModelState.AddModelError("ProductSerialNumber", "The Product serial number is invalid");
+            }
+            if (ModelState.IsValid)
+            {
+                _db.Submission.Add(obj);
+                _db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+            
+        }
+
     }
 }

@@ -5,13 +5,20 @@
         <div class="row pb-2">
             <h2 class="text-primary">Submit form</h2>
         </div>
+        <div asp-validation-summary="All" class="text-danger"></div>
         <div class="mb-3">
             <label asp-for="FirstName"></label>
             <input asp-for="FirstName" class="form-control" />
+        </div>
+        <div class="mb-3">
             <label asp-for="LastName"></label>
             <input asp-for="LastName" class="form-control" />
+        </div>
+        <div class="mb-3">
             <label asp-for="Email"></label>
             <input asp-for="Email" class="form-control" />
+        </div>
+        <div class="mb-3">
             <label asp-for="ProductSerialNumber"></label>
             <input asp-for="ProductSerialNumber" class="form-control" />
         </div>
