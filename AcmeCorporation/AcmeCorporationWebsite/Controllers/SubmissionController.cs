@@ -39,6 +39,7 @@ namespace AcmeCorporationWebsite.Controllers
             {
                 _db.Submission.Add(obj);
                 _db.SaveChanges();
+                TempData["success"] = "Form was submitted successfully";
                 return RedirectToAction("Index");
             }
             return View(obj);
