@@ -1,0 +1,24 @@
+﻿@model SubmissionModel
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="text-primary">Submit form</h2>
+        </div>
+        <div class="mb-3">
+            <label asp-for="FirstName"></label>
+            <input asp-for="FirstName" class="form-control" />
+            <label asp-for="LastName"></label>
+            <input asp-for="LastName" class="form-control" />
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <label asp-for="ProductSerialNumber"></label>
+            <input asp-for="ProductSerialNumber" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-success" style="width:150px">Submit</button>
+        <a asp-controller="Submission" asp-action="Index" class="btn btn-secondary" style="width:150px">
+            Back to list
+        </a>
+    </div>
+</form>
+

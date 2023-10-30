@@ -19,5 +19,12 @@ namespace AcmeCorporationWebsite.Controllers
             IEnumerable<SubmissionModel> objSubmission = _db.Submission;
             return View(objSubmission);
         }
+
+        // Get
+        public IActionResult SubmitForm()
+        {
+            return View();
+        }
+        
     }
 }
