@@ -15,9 +15,7 @@ namespace AcmeCorporationLibrary.Models
         [Required]
         public string ProductSerialNumber { get; set; }
 
-        public SubmissionModel()
-        {
-            
-        }
+        public DateTime CreatedDateTime { get; set; } = DateTime.Now;
+
     }
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AcmeCorporationLibrary.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AcmeCorporationLibrary.Data
 {
@@ -7,6 +9,7 @@ namespace AcmeCorporationLibrary.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :base(options)
         {
         }
-        //DbSet<SerialNumber>
+        
+        public DbSet<SubmissionModel> Submission { get; set; }
     }
 }
