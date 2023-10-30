@@ -1,4 +1,6 @@
-namespace AcmeCorporationWebsite.Models
+
+
+namespace AcmeCorporationLibrary.Models
 {
     public class ErrorViewModel
     {
