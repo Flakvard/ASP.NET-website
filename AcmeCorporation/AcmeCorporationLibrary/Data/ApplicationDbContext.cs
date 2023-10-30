@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace AcmeCorporationWebsite.Data
+namespace AcmeCorporationLibrary.Data
 {
     public class ApplicationDbContext : DbContext
     {
