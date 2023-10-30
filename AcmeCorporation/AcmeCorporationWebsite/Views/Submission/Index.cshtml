@@ -1,0 +1,48 @@
+﻿@model IEnumerable<SubmissionModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Enter draw for a price</h1>
+<p> To enter the draw for a chance to win a free trip to the Bahamas, simply fill out the form and submit it by the deadline.<br />
+You have to a valid serial number from purchasing one of Acme Corporation’s products and you must be at least 18 years old.<br />
+A valid serial number can be used twice.Use this page to detail your site's privacy policy.</p>
+
+<table class="table table-borered table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Product Serial Number
+            </th>
+            <th>
+                Created date
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var obj in Model)
+        {
+            <tr>
+                <td>
+                    @obj.FirstName @obj.LastName
+                </td>
+                <td>
+                    @obj.Email
+                </td>
+                <td>
+                    @obj.ProductSerialNumber
+                </td>
+                <td>
+                    @obj.CreatedDateTime
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
