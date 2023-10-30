@@ -4,45 +4,89 @@
 }
 
 <h1>Enter draw for a price</h1>
-<p> To enter the draw for a chance to win a free trip to the Bahamas, simply fill out the form and submit it by the deadline.<br />
-You have to a valid serial number from purchasing one of Acme Corporation’s products and you must be at least 18 years old.<br />
-A valid serial number can be used twice.Use this page to detail your site's privacy policy.</p>
 
-<table class="table table-borered table-striped" style="width:100%">
-    <thead>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Email
-            </th>
-            <th>
-                Product Serial Number
-            </th>
-            <th>
-                Created date
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var obj in Model)
-        {
-            <tr>
-                <td>
-                    @obj.FirstName @obj.LastName
-                </td>
-                <td>
-                    @obj.Email
-                </td>
-                <td>
-                    @obj.ProductSerialNumber
-                </td>
-                <td>
-                    @obj.CreatedDateTime
-                </td>
+<p>
+    To enter the draw for a chance to win a free trip to the Bahamas, simply fill out the form and submit it by the deadline.<br />
+    You have to a valid serial number from purchasing one of Acme Corporation’s products and you must be at least 18 years old.<br />
+    A valid serial number can be used twice.Use this page to detail your site's privacy policy.
+</p>
+
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Submission List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Submission" asp-action="SubmitForm" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> &nbsp; Submit a new form
+            </a>
+        </div>
+    </div>
+
+
+    <table class="table table-borered table-striped" style="width:100%">
+        <thead>
+            <tr class="table-primary">
+                <th>
+                    Name
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Product Serial Number
+                </th>
+                <th>
+                    Created date
+                </th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach(var obj in Model)
+            {
+                <tr class="table-light">
+                    <td width="25%">
+                        @obj.FirstName @obj.LastName
+                    </td>
+                    <td width="25%">
+                        @obj.Email
+                    </td>
+                    <td width="25%">
+                        @obj.ProductSerialNumber
+                    </td>
+                    <td width="25%">
+                        @obj.CreatedDateTime
+                    </td>
+                </tr>
+            }
 
-    </tbody>
-</table>
+        </tbody>
+    </table>
+
+</div>
+<div>
+    <ul class="pagination">
+        <li class="page-item disabled">
+            <a class="page-link" href="#">&laquo;</a>
+        </li>
+        <li class="page-item active">
+            <a class="page-link" href="#">1</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="#">2</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="#">3</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="#">4</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="#">5</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="#">&raquo;</a>
+        </li>
+    </ul>
+</div>
