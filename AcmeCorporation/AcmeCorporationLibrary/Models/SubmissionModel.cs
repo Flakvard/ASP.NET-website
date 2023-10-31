@@ -10,15 +10,18 @@ namespace AcmeCorporationLibrary.Models
         public int Id { get; set; }
         [Required]
         [DisplayName("First name")]
-        public string FirstName { get; set; }
+        public required string FirstName { get; set; }
         [Required]
         [DisplayName("Last name")]
-        public string LastName { get; set; }
+        public required string LastName { get; set; }
+        //[Required]
+        //[Range(18,120)]
+        //public required uint Age { get; set; }
         [Required]
-        public string Email { get; set; }
+        public required string Email { get; set; }
         [Required]
         [DisplayName("Product serial number")]
-        public string ProductSerialNumber { get; set; }
+        public required string ProductSerialNumber { get; set; }
 
         public DateTime CreatedDateTime { get; set; } = DateTime.Now;
 

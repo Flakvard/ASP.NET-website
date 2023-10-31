@@ -6,9 +6,9 @@ namespace AcmeCorporationWebsite.Controllers
 {
     public class SubmissionController : Controller
     {
-        private readonly ApplicationDbContext _db;
+        private readonly IApplicationDbContext _db;
 
-        public SubmissionController(ApplicationDbContext db)
+        public SubmissionController(IApplicationDbContext db)
         {
             _db = db;
             
@@ -30,6 +30,20 @@ namespace AcmeCorporationWebsite.Controllers
         [ValidateAntiForgeryToken] // Prevent cross-site request forgery
         public IActionResult SubmitForm(SubmissionModel obj)
         {
+            // Serverside validation
+            if (string.IsNullOrEmpty(obj.FirstName))
+            {
+                ModelState.AddModelError("FirstName", "First name is required");
+            }
+            if (string.IsNullOrEmpty(obj.LastName))
+            {
+                ModelState.AddModelError("LastName", "Last name is required");
+            }
+            if (string.IsNullOrEmpty(obj.Email))
+            {
+                ModelState.AddModelError("Email", "Email address is required");
+            }
+
             // TODO: add custom validation for product serial number
             if (obj.ProductSerialNumber == "123")
             {
@@ -40,10 +54,10 @@ namespace AcmeCorporationWebsite.Controllers
                 _db.Submission.Add(obj);
                 _db.SaveChanges();
                 TempData["success"] = "Form was submitted successfully";
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
             return View(obj);
-            
+
         }
 
     }
