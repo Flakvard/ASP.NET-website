@@ -18,7 +18,7 @@ namespace AcmeCorporationLibrary.Models
         public uint ConsumeTimes { get; set; }
         private bool IsConsumptionLeft()
         {
-            if (ConsumeTimes == 0)
+            if (ConsumeTimes <= 1)
             {
                 IsActive = false;
                 return false;

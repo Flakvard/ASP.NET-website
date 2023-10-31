@@ -3,7 +3,7 @@ using AcmeCorporationLibrary.Models;
 
 namespace AcmeCorporationLibrary.Business
 {
-    internal class DrawManager
+    public class DrawManager : IDrawManager
     {
         private readonly IApplicationDbContext _db;
         public DrawManager(IApplicationDbContext db)
@@ -15,7 +15,7 @@ namespace AcmeCorporationLibrary.Business
 
         private void InitializeSerialNumbers()
         {
-            validSerialNumbers = _db.SerialNumbers.Select(sn => sn.Guid).ToList();
+            validSerialNumbers = _db.SerialNumbers.Where(sn => sn.IsActive).Select(sn => sn.Guid).ToList();
         }
 
         public bool IsSerialNumberValid(string serialNumber)
