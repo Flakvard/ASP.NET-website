@@ -6,3 +6,5 @@ global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
 global using Moq;
 global using System.Collections.Generic;
+global using Microsoft.AspNetCore.Mvc.ViewFeatures;
+

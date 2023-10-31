@@ -1,6 +1,7 @@
 ﻿using AcmeCorporationLibrary.Data;
 using AcmeCorporationLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AcmeCorporationWebsite.Controllers
 {
@@ -16,8 +17,7 @@ namespace AcmeCorporationWebsite.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<SubmissionModel> objSubmission = _db.Submission;
-            return View(objSubmission);
+            return View();
         }
 
         // Get
@@ -57,7 +57,20 @@ namespace AcmeCorporationWebsite.Controllers
                 return RedirectToAction("Index","Home");
             }
             return View(obj);
+        }
+        // AJAX get submissions
+        [HttpGet]
+        public async Task<IActionResult> GetSubmissions(int page = 1, int pageSize = 10)
+        {
+            var query = _db.Submission.AsQueryable();
+            var totalCount = await query.CountAsync();
 
+            var submissions = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return Json(new { Submissions = submissions, TotalCount = totalCount });
         }
 
     }
