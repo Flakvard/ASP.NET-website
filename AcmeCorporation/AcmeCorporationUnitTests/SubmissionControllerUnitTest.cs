@@ -1,6 +1,4 @@
 ﻿
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-
 namespace AcmeCorporationTests.UnitTests
 {
     public class SubmissionControllerTests
@@ -110,32 +108,65 @@ namespace AcmeCorporationTests.UnitTests
             // Verify that TempData has been set
             mockTempData.VerifySet(t => t["success"] = "Form was submitted successfully");
         }
+        
+        [Fact]
+        public async Task GetSubmissions_ReturnsJsonResultWithSubmissionData()
+        {
+            // Arrange
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseInMemoryDatabase(databaseName: "TestDb")
+                .Options;
+            using (var context = new ApplicationDbContext(options))
+            {
+                context.Submission.AddRange(
+                   new SubmissionModel { FirstName = "John", LastName = "Doe", Email = "john.doe@example.com", ProductSerialNumber = "456" },
+                   new SubmissionModel { FirstName = "Jane", LastName = "Smith", Email = "jane.smith@example.com", ProductSerialNumber = "789" }
+                );  
+                context.SaveChanges();
+            }
+            
+
+            var dbContext = new ApplicationDbContext(options);
+            var controller = new SubmissionController(dbContext);
+
+            // Act
+            var result = await controller.GetSubmissions();
+
+            // Assert
+            var jsonResult = Assert.IsType<JsonResult>(result);
+            dynamic data = jsonResult.Value;
+            var submissions = ((IEnumerable<object>)data.GetType().GetProperty("Submissions").GetValue(data, null)).ToList();
+            Assert.NotNull(submissions);
+
+            var firstSubmission = (SubmissionModel)submissions[0];
+            var secondSubmission = (SubmissionModel)submissions[1];
+
+            // Assert the first submission
+            Assert.Equal("John", firstSubmission.FirstName);
+            Assert.Equal("Doe", firstSubmission.LastName);
+            Assert.Equal("john.doe@example.com", firstSubmission.Email);
+            Assert.Equal("456", firstSubmission.ProductSerialNumber);
+
+            // Assert the second submission
+            Assert.Equal("Jane", secondSubmission.FirstName);
+            Assert.Equal("Smith", secondSubmission.LastName);
+            Assert.Equal("jane.smith@example.com", secondSubmission.Email);
+            Assert.Equal("789", secondSubmission.ProductSerialNumber);
+        }
 
         [Fact]
-        public void Index_ReturnsViewResultWithSubmissionData()
+        public void Index_ReturnsViewResultWithoutSubmissionData()
         {
             // Arrange
             var mockDbContext = new Mock<IApplicationDbContext>();
-            var mockDbSet = new Mock<DbSet<SubmissionModel>>();
-            var submissions = new List<SubmissionModel>
-            {
-                new SubmissionModel { FirstName = "John", LastName = "Doe", Email = "john.doe@example.com", ProductSerialNumber = "456" }
-            }.AsQueryable();
-            mockDbSet.As<IQueryable<SubmissionModel>>().Setup(m => m.Provider).Returns(submissions.Provider);
-            mockDbSet.As<IQueryable<SubmissionModel>>().Setup(m => m.Expression).Returns(submissions.Expression);
-            mockDbSet.As<IQueryable<SubmissionModel>>().Setup(m => m.ElementType).Returns(submissions.ElementType);
-            mockDbSet.As<IQueryable<SubmissionModel>>().Setup(m => m.GetEnumerator()).Returns(submissions.GetEnumerator());
-            mockDbContext.Setup(db => db.Submission).Returns(mockDbSet.Object);
             var controller = new SubmissionController(mockDbContext.Object);
 
             // Act
             var result = controller.Index() as ViewResult;
-            var model = result.ViewData.Model as IEnumerable<SubmissionModel>;
 
             // Assert
             Assert.NotNull(result);
-            Assert.NotNull(model);
-            Assert.Single(model);
+            Assert.Null(result.ViewData.Model);
         }
     }
 }
