@@ -16,7 +16,8 @@ namespace AcmeCorporationTests.UnitTests
                 FirstName = "John",
                 LastName = "Doe",
                 Email = "john.doe@example.com",
-                ProductSerialNumber = "123" // Invalid product serial number
+                ProductSerialNumber = "123", // Invalid product serial number
+                IsOver18 = true
             };
 
             // Act
@@ -42,21 +43,24 @@ namespace AcmeCorporationTests.UnitTests
                 FirstName = "",                 // invalid
                 LastName = "Doe",               // valid
                 Email = "john.doe@example.com", // valid
-                ProductSerialNumber = "456"     // valid
+                ProductSerialNumber = "456",     // valid
+                IsOver18 = true                 // valid
             };
             var invalidSubmissionLastN = new SubmissionModel
             {
                 FirstName = "John",             // valid
                 LastName = "",                  // invalid
                 Email = "john.doe@example.com", // valid
-                ProductSerialNumber = "456"     // valid
+                ProductSerialNumber = "456",    // valid
+                IsOver18 = true                 // valid
             };
             var invalidSubmissionEmail = new SubmissionModel
             {
                 FirstName = "John",             // valid
                 LastName = "Doe",               // valid
                 Email = "",                     // invalid
-                ProductSerialNumber = "456"     // valid
+                ProductSerialNumber = "456",     // valid
+                IsOver18 = true                 // valid
             };
 
             // Act
@@ -95,7 +99,8 @@ namespace AcmeCorporationTests.UnitTests
                 FirstName = "John",
                 LastName = "Doe",
                 Email = "john.doe@example.com",
-                ProductSerialNumber = "456" // Valid product serial number
+                ProductSerialNumber = "456", // Valid product serial number
+                IsOver18 = true
             };
 
             // Act
@@ -119,8 +124,8 @@ namespace AcmeCorporationTests.UnitTests
             using (var context = new ApplicationDbContext(options))
             {
                 context.Submission.AddRange(
-                   new SubmissionModel { FirstName = "John", LastName = "Doe", Email = "john.doe@example.com", ProductSerialNumber = "456" },
-                   new SubmissionModel { FirstName = "Jane", LastName = "Smith", Email = "jane.smith@example.com", ProductSerialNumber = "789" }
+                   new SubmissionModel { FirstName = "John", LastName = "Doe", Email = "john.doe@example.com", ProductSerialNumber = "456", IsOver18 = true },
+                   new SubmissionModel { FirstName = "Jane", LastName = "Smith", Email = "jane.smith@example.com", ProductSerialNumber = "789", IsOver18 = true }
                 );  
                 context.SaveChanges();
             }
