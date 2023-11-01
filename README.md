@@ -1,21 +1,21 @@
 ﻿# Table of Contents
 
-- [Introduction](#Introduction)
-    - [Enter a draw for a prize](##Enter-a-draw-for-a-prize.)
-- [Getting started](#Getting-started)
-    - [Clone project](##Clone-project)
-    - [Database setup](##Database-setup)
-- [Implementation](#Implementation)
-    - [Assignment](##Assignment:)
-    - [Bonus](##Bonus:)
-- [Structure](#Structure)
-    - [AcmeCorporationLibrary (Class Library Project):](###-AcmeCorporationLibrary-(Class-Library-Project):)
-    - [AcmeCorporationWebsite (ASP.NET Web Application Project):](###AcmeCorporationWebsite-(ASP.NET-Web-Application-Project):)
-    - [AcmeCorporationUnitTests (Testing Project):](###AcmeCorporationUnitTests-(Testing-Project):)
+- [Introduction](#introduction)
+    - [What is this project about?](#what-is-this-project-about)
+- [Getting started](#getting-started)
+    - [Clone project](#clone-repo)
+    - [Database setup](#database-setup)
+- [Implementation](#implementation)
+    - [Assignment](#assignment)
+    - [Bonus](#bonus)
+- [Structure](#structure)
+    - [AcmeCorporationLibrary (Class Library Project):](#acmecorporationlibrary-class-library-project)
+    - [AcmeCorporationWebsite (ASP.NET Web Application Project):](#acmecorporationwebsite-aspnet-web-application-project)
+    - [AcmeCorporationUnitTests (Testing Project):](#acmecorporationunittests-testing-project)
 
 
 # Introduction
-## Enter a draw for a prize.
+## What is this project about?
 The landing page is for an international company called “Acme Corporation” where users can enter a draw for a prize. 
 
 A user can enter the draw if they have a valid serial number from purchasing one of Acme Corporation’s products.
@@ -29,32 +29,36 @@ The valid product serial number can be used twice in the draw, but the user must
 
 
 # Getting started 
-## Clone project
-Clone via PowerShell
+## Clone repo
+Clone via PowerShell.
 ```PowerShell
 git clone https://github.com/Flakvard/ASP.NET-website.git
 ```
-Open path in File Explorer
+Open path in File Explorer.
 ```PowerShell
 cd ASP.NET-website/AcmeCorporation && explorer .
 ```
-And then open `AcmeCorporation.sln` via Visual Studio :D
+And then open `AcmeCorporation.sln` via Visual Studio.
 ## Database setup
 Inside `appsettings.json` there is the default login. No username or password needed, but be sure to add the database to a working `Server=<server>`. MSSQL Management studio you can find relevant information about this.
 ```json
   "ConnectionStrings": {
     "DefaultConnection": "Server=LAPTOP-AV3K8LV5;Database=AcmeCorp;Trusted_Connection=True;TrustServerCertificate=True;"
 ```
-There are already 100 valid serial numbers generated via `Add-Migration`, so you only need to `Update-Database` inside the `Package Manager Console` in Visual Studio .
+There are already 100 valid serial numbers generated via `Add-Migration`, so you only need to `Update-Database` inside the `Package Manager Console` in Visual Studio like this:
+```
+PM> Update-Database
+```
 
 # Implementation
 The aim was to try an create an flexible, maintainable, and testable system that can adapt to changing requirements over time. 
 
 This was done by:
 - Defining the layers of the project
-- Implementing Inversion of Control (IoC) using Dependency Injection (DI) between the layers/components.
 - Try to hold SOLID principles on all levels to improve modularity and testability.
-- Implements EntityFramework ORM for the Data layer/repository
+- Test everything
+- Implementing Inversion of Control (IoC) using Dependency Injection (DI) between the layers/components.
+- Using EntityFramework ORM for the Data layer/repository
 
 There is of course other ways to do this, and I could add more abstractions layers, but I did not think it was neccesery for the assignment.
 
@@ -94,6 +98,7 @@ followed
 	- [x] Serverside validation with invalid and valid 
 	- [x] Get submissions via Async and JSON (for AJAX)
 - [x] Display submissions via AJAX GET method
+- [x] Notification of successful form submission
 - [x] Write a README.md file at the root of your repository
 - [ ] Require authenticated access to view the report of form submissions
 
