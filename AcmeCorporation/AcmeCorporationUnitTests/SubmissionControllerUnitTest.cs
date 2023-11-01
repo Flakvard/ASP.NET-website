@@ -1,4 +1,6 @@
 ﻿
+using AcmeCorporationLibrary.Business;
+
 namespace AcmeCorporationTests.UnitTests
 {
     public class SubmissionControllerTests
@@ -7,10 +9,12 @@ namespace AcmeCorporationTests.UnitTests
         public void SubmitForm_WithInvalidSerialNumber_ReturnsViewWithModelError()
         {
             // Arrange
+            var mockDrawManager = new Mock<IDrawManager>();
+            mockDrawManager.Setup(dm => dm.CheckAndUpdateSerialNumber("b8aa8726-90f7-4772-bcb4-56e25738447e")).Returns(true);
             var mockDbContext = new Mock<IApplicationDbContext>();
             var mockDbSet = new Mock<DbSet<SubmissionModel>>();
             mockDbContext.Setup(db => db.Submission).Returns(mockDbSet.Object);
-            var controller = new SubmissionController(mockDbContext.Object);
+            var controller = new SubmissionController(mockDbContext.Object, mockDrawManager.Object);
             var invalidSubmission = new SubmissionModel
             {
                 FirstName = "John",
@@ -37,13 +41,15 @@ namespace AcmeCorporationTests.UnitTests
             var mockDbContext = new Mock<IApplicationDbContext>();
             var mockDbSet = new Mock<DbSet<SubmissionModel>>();
             mockDbContext.Setup(db => db.Submission).Returns(mockDbSet.Object);
-            var controller = new SubmissionController(mockDbContext.Object);
+            var mockDrawManager = new Mock<IDrawManager>();
+            mockDrawManager.Setup(dm => dm.CheckAndUpdateSerialNumber(It.IsAny<string>())).Returns(true);
+            var controller = new SubmissionController(mockDbContext.Object, mockDrawManager.Object);
             var invalidSubmissionFirstN = new SubmissionModel
             {
                 FirstName = "",                 // invalid
                 LastName = "Doe",               // valid
                 Email = "john.doe@example.com", // valid
-                ProductSerialNumber = "456",     // valid
+                ProductSerialNumber = "456",    // valid
                 IsOver18 = true                 // valid
             };
             var invalidSubmissionLastN = new SubmissionModel
@@ -88,18 +94,24 @@ namespace AcmeCorporationTests.UnitTests
         public void SubmitForm_WithValidSubmission_ReturnsRedirectToActionResult()
         {
             // Arrange
-            var mockTempData = new Mock<ITempDataDictionary>();
+            
+
             var mockDbContext = new Mock<IApplicationDbContext>();
             var mockDbSet = new Mock<DbSet<SubmissionModel>>();
             mockDbContext.Setup(db => db.Submission).Returns(mockDbSet.Object);
-            var controller = new SubmissionController(mockDbContext.Object);
+
+            var mockDrawManager = new Mock<IDrawManager>();
+            mockDrawManager.Setup(dm => dm.CheckAndUpdateSerialNumber("b8aa8726-90f7-4772-bcb4-56e25738447e")).Returns(true);
+
+            var controller = new SubmissionController(mockDbContext.Object, mockDrawManager.Object);
+            var mockTempData = new Mock<ITempDataDictionary>();
             controller.TempData = mockTempData.Object;
             var validSubmission = new SubmissionModel
             {
                 FirstName = "John",
                 LastName = "Doe",
                 Email = "john.doe@example.com",
-                ProductSerialNumber = "456", // Valid product serial number
+                ProductSerialNumber = "b8aa8726-90f7-4772-bcb4-56e25738447e", // Valid product serial number
                 IsOver18 = true
             };
 
@@ -132,7 +144,8 @@ namespace AcmeCorporationTests.UnitTests
             
 
             var dbContext = new ApplicationDbContext(options);
-            var controller = new SubmissionController(dbContext);
+            var mockDrawManager = new Mock<IDrawManager>();
+            var controller = new SubmissionController(dbContext, mockDrawManager.Object);
 
             // Act
             var result = await controller.GetSubmissions();
@@ -164,7 +177,8 @@ namespace AcmeCorporationTests.UnitTests
         {
             // Arrange
             var mockDbContext = new Mock<IApplicationDbContext>();
-            var controller = new SubmissionController(mockDbContext.Object);
+            var mockDrawManager = new Mock<IDrawManager>();
+            var controller = new SubmissionController(mockDbContext.Object, mockDrawManager.Object);
 
             // Act
             var result = controller.Index() as ViewResult;
