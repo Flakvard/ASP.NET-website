@@ -1,7 +1,7 @@
 ﻿using AcmeCorporationLibrary.Business;
 
 
-namespace AcmeCorporationUnitTests
+namespace AcmeCorporationUnitTests.Business
 {
     public class DrawManagerUnitTest
     {
@@ -79,5 +79,5 @@ namespace AcmeCorporationUnitTests
             Assert.Equal(true, resultObj.IsActive);
         }
 
-        }
+    }
 }

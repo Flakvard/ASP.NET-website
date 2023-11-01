@@ -1,43 +1,174 @@
-﻿# ASP.NET-website
-## Acme Corporation - Users can enter a draw for a prize.
+﻿# Table of Contents
+
+- [Introduction](#introduction)
+    - [What is this project about?](#what-is-this-project-about)
+- [Getting started](#getting-started)
+    - [Clone project](#clone-repo)
+    - [Database setup](#database-setup)
+- [Implementation](#implementation)
+    - [Assignment](#assignment)
+    - [Bonus](#bonus)
+- [Structure](#structure)
+    - [AcmeCorporationLibrary (Class Library Project):](#acmecorporationlibrary-class-library-project)
+    - [AcmeCorporationWebsite (ASP.NET Web Application Project):](#acmecorporationwebsite-aspnet-web-application-project)
+    - [AcmeCorporationUnitTests (Testing Project):](#acmecorporationunittests-testing-project)
+
+
+# Introduction
+## What is this project about?
+The landing page is for an international company called “Acme Corporation” where users can enter a draw for a prize. 
+
+A user can enter the draw if they have a valid serial number from purchasing one of Acme Corporation’s products.
+
+
+You can test the valid product serial number in the `~/ASP.NET-website/"Product serial numbers.txt"` file.
+
+
+The valid product serial number can be used twice in the draw, but the user must fill out a form **and** be at least 18 years old.
+
+
+
+# Getting started 
+## Clone repo
+Clone via PowerShell.
+```PowerShell
+git clone https://github.com/Flakvard/ASP.NET-website.git
+```
+Open path in File Explorer.
+```PowerShell
+cd ASP.NET-website/AcmeCorporation && explorer .
+```
+And then open `AcmeCorporation.sln` via Visual Studio.
+## Database setup
+Inside `appsettings.json` there is the default login. No username or password needed, but be sure to add the database to a working `Server=<server>`. MSSQL Management studio you can find relevant information about this.
+```json
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=LAPTOP-AV3K8LV5;Database=AcmeCorp;Trusted_Connection=True;TrustServerCertificate=True;"
+```
+There are already 100 valid serial numbers generated via `Add-Migration`, so you only need to `Update-Database` inside the `Package Manager Console` in Visual Studio like this:
+```
+PM> Update-Database
+```
+
+# Implementation
+The aim was to try an create an flexible, maintainable, and testable system that can adapt to changing requirements over time. 
+
+This was done by:
+- Defining the layers of the project
+- Try to hold SOLID principles on all levels to improve modularity and testability.
+- Test everything
+- Implementing Inversion of Control (IoC) using Dependency Injection (DI) between the layers/components.
+- Using EntityFramework ORM for the Data layer/repository
+
+There is of course other ways to do this, and I could add more abstractions layers, but I did not think it was neccesery for the assignment.
+
+I tried my best to hold the YAGNI principles and **not** go by "ifs/maybes".
+
+## Assignment:
+- [x] Using Visual Studio
+- [x] Create a web application project
+- [x] Create secondary projects for
+	- [x] test 
+	- [x] class library content
+- [x] Create database and table(s) to store information for the draw
+- [x] README.md steps to get the database running locally
+- [x] Generate 100 valid serial numbers
+    - [x] Export the generated serial numbers for submitting ("~/Product serial numbers.txt")
+- [x] Create a submission form on a web page (should include):
+	- [x] First name
+	- [x] Last name
+	- [x] Email address
+	- [x] Product serial number
+    - [x] Over 18 (Yes/no) *(My addition to the form)*
+- [x] Form submission data needs to be:
+	- [x] validated and 
+	- [x] stored in the database
+    - [x] Both client-side and server-side validation on user input. *(My addition to the form)*
+- [x] Create a web page showing all the form submissions
+	- [x] Pagination showing 10 items per page
+- [x] Write unit tests for validating the form data to ensure that the rules for entering the draw are
+followed
+
+## Bonus:
+- [x] Use IoC/Dependency Injection for the solution
+	- Dependency Injection into ASP.NET WebApplication pipeline builder
+	    - [x] IDrawManager
+	    - [x] IApplicationDbContext
+- [x] Unit test for the Controller action submitting the form
+	- [x] Serverside validation with invalid and valid 
+	- [x] Get submissions via Async and JSON (for AJAX)
+- [x] Display submissions via AJAX GET method
+- [x] Notification of successful form submission
+- [x] Write a README.md file at the root of your repository
+- [ ] Require authenticated access to view the report of form submissions
+
+
+
+# Structure
 
 This website is created using ASP.NET in Visual Studio's solutions - AcmeCorporation. 
 There are three projects in the solution: `AcmeCorporationWebsite`, `AcmeCorporationLibrary` and `AcmeCorporationUnitTests`
 
-AcmeCorporationWebsite (ASP.NET Web Application Project):
-> - Views
-> - Controllers
-> - Scripts: JavaScript files
-> - Styles: CSS files
 
-AcmeCorporationLibrary (Class Library Project):
-> - DataAccess
-> - BusinessLogic
-> - Models
-> - Utilities
-
-AcmeCorporationUnitTests (Testing Project):
-> - UnitTests
-
-The landing page is for an international company called “Acme Corporation” where users can enter a draw for a prize. 
-
-A user can enter the draw if they have a valid serial number from purchasing one of Acme Corporation’s products. 
-The valid serial number can be used twice in the draw and the user must be at least 18 years old.
-
-They enter the draw by Form submission:
-
-▪ First name
-
-▪ Last name
-
-▪ Email address
-
-▪ Product serial number
-
-## Connecting to the MSSQL db
-Inside `appsettings.json` there is the default login. No username or password needed.
-```JSON
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=LAPTOP-AV3K8LV5;Database=AcmeCorp;Trusted_Connection=True;"
+### AcmeCorporationLibrary (Class Library Project):
+```bash
+└── AcmeCorporationLibrary
+    ├── AcmeCorporationLibrary.csproj
+    ├── Business
+    │   ├── DrawManager.cs
+    │   └── IDrawManager.cs
+    ├── Data
+    │   ├── ApplicationDbContext.cs
+    │   └── IApplicationDbContext.cs
+    ├── Migrations
+    │   └── ApplicationDbContextModelSnapshot.cs
+    └── Models
+       ├── ErrorViewModel.cs
+       ├── SerialNumberModel.cs
+       └── SubmissionModel.cs
 ```
-There are already 100 valid serial numbers generated.
+
+### AcmeCorporationWebsite (ASP.NET Web Application Project):
+```bash
+└── AcmeCorporationWebsite
+    ├── AcmeCorporationWebsite.csproj
+    ├── Controllers
+    │   ├── HomeController.cs
+    │   └── SubmissionController.cs
+    ├── Views
+    │   ├── Home
+    │   │   ├── Index.cshtml
+    │   │   └── Privacy.cshtml
+    │   ├── Shared
+    │   │   ├── _Notification.cshtml
+    │   │   └── _ValidationScriptsPartial.cshtml
+    │   └── Submission
+    │       ├── Index.cshtml
+    │       └── SubmitForm.cshtml
+    ├── appsettings.Development.json
+    ├── appsettings.json
+    └── wwwroot
+        ├── css
+        │   └── bootswatchTheme.css
+        ├── js
+        │   └── submission.js
+        └── lib
+            └── ...
+
+```
+
+### AcmeCorporationUnitTests (Testing Project):
+```bash
+└── AcmeCorporationUnitTests
+    ├── AcmeCorporationUnitTests.csproj
+    ├── Business
+    │   └── DrawManagerUnitTest.cs
+    ├── Controller
+    │   └── SubmissionControllerUnitTest.cs
+    ├── Data
+    │   └── ApplicationDbContextUnitTest.cs
+    ├── GlobalUsings.cs
+    └── Models
+        ├── SerialNumberModelUnitTest.cs
+        └── SubmissionModelUnitTest.cs
+```

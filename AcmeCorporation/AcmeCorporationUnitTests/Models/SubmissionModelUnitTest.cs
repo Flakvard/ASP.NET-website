@@ -1,5 +1,4 @@
-
-namespace AcmeCorporationTests.UnitTests
+namespace AcmeCorporationUnitTests.Models
 {
     public class SubmissionTests
     {
@@ -13,7 +12,7 @@ namespace AcmeCorporationTests.UnitTests
                 LastName = "Doe",
                 Email = "john.doe@example.com",
                 ProductSerialNumber = "123", // Invalid product serial number
-                IsOver18 = true
+                IsOver18 = "true"
             };
 
             // Act
@@ -33,7 +32,7 @@ namespace AcmeCorporationTests.UnitTests
                 LastName = "Doe",
                 Email = "john.doe@example.com",
                 ProductSerialNumber = "456", // Valid product serial number
-                IsOver18 = true
+                IsOver18 = "true"
             };
 
             // Act
@@ -44,7 +43,7 @@ namespace AcmeCorporationTests.UnitTests
         }
 
         // TODO: Implement a method called ValidateSubmission for validation for draw contest
-        private bool ValidateSubmission(SubmissionModel submission)
+        private static bool ValidateSubmission(SubmissionModel submission)
         {
             if (submission.ProductSerialNumber == "123")
             {

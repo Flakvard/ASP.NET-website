@@ -18,7 +18,7 @@ namespace AcmeCorporationLibrary.Models
         public uint ConsumeTimes { get; set; }
         private bool IsConsumptionLeft()
         {
-            if (ConsumeTimes <= 1)
+            if (ConsumeTimes == 0u)
             {
                 IsActive = false;
                 return false;
@@ -28,9 +28,13 @@ namespace AcmeCorporationLibrary.Models
         }
         public void UpdateSerialNumber()
         {
-            if (IsConsumptionLeft())
+            if (IsActive)
             {
                 ConsumeTimes--;
+            }
+            if (IsConsumptionLeft())
+            {
+                
             }
         }
 

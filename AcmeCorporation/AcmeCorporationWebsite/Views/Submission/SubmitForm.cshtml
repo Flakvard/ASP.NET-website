@@ -1,13 +1,30 @@
 ﻿@model SubmissionModel
-<h1>Enter draw for a price</h1>
 
+
+<style>
+    body {
+        background-image: url('/Images/forest-simon-xa-fv2RQCPY-unsplash.jpg'); 
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        opacity: 0.9;
+    }
+</style>
+
+
+<div class ="card-header alert alert-dismissible  alert-primary mt-2">
+    <h1>Welcome to the draw competition for Bahamas!</h1>
+
+</div>
+<div class="border p-3 bg-body bg-warning rounded-1">
 <p>
     To enter the draw for a chance to win a free trip to the Bahamas, simply fill out the form and submit it by the deadline.<br />
     You have to a valid serial number from purchasing one of Acme Corporation’s products and you must be at least 18 years old.<br />
-    A valid serial number can be used twice.Use this page to detail your site's privacy policy.
+    A valid serial number can be used twice.
 </p>
+</div>
 <form method="post">
-    <div class="border p-3 mt-4">
+    <div class="border p-3 mt-4 bg-body bg-primary rounded-1">
         <div class="row pb-2">
             <h2 class="text-primary">Submit form</h2>
         </div>
@@ -28,15 +45,23 @@
             <label asp-for="ProductSerialNumber"></label>
             <input asp-for="ProductSerialNumber" class="form-control" />
         </div>
+        <div class="form-check">
+            <input asp-for="IsOver18" class="form-check-input" data-val="true" data-val-required="You must be at least 18 years old." type="checkbox" id="IsOver18" name="IsOver18" />
+            <label asp-for="IsOver18" class="form-check-label">I agree to the terms and conditions and confirm that I am over 18 years old.</label>
+        </div>
         <button type="submit" class="btn btn-success" style="width:150px">Submit</button>
         <a asp-controller="Submission" asp-action="Index" class="btn btn-secondary" style="width:150px">
             Back to list
         </a>
     </div>
+ 
 </form>
+
+<p>Photo by <a href="@Html.Raw("https://unsplash.com/@forest_ms?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash")">Forest Simon</a> on <a href="https://unsplash.com/photos/brown-pig-in-body-of-water-xa-fv2RQCPY?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></p>
 
 @section Scripts{
     @{
         <partial name="_ValidationScriptsPartial" />
     }
 }
+

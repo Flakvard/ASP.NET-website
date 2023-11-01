@@ -14,16 +14,14 @@ namespace AcmeCorporationLibrary.Models
         [Required]
         [DisplayName("Last name")]
         public required string LastName { get; set; }
-        //[Required]
-        //[Range(18,120)]
-        //public required uint Age { get; set; }
         [Required]
+        [EmailAddress]
         public required string Email { get; set; }
         [Required]
         [DisplayName("Product serial number")]
         public required string ProductSerialNumber { get; set; }
-        [Required]
-        public required bool IsOver18 {  get; set; }
+        [Required(ErrorMessage = "You must be at least 18 years old.")]
+        public required string IsOver18 {  get; set; }
 
         public DateTime CreatedDateTime { get; set; } = DateTime.Now;
 
