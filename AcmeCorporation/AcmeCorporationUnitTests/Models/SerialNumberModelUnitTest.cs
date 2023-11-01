@@ -1,5 +1,4 @@
-﻿
-namespace AcmeCorporationUnitTests
+﻿namespace AcmeCorporationUnitTests.Models
 {
     public class SerialNumberModelUnitTest
     {

@@ -1,7 +1,7 @@
 ﻿
 using AcmeCorporationLibrary.Business;
 
-namespace AcmeCorporationTests.UnitTests
+namespace AcmeCorporationUnitTests.Controller
 {
     public class SubmissionControllerTests
     {
@@ -21,7 +21,7 @@ namespace AcmeCorporationTests.UnitTests
                 LastName = "Doe",
                 Email = "john.doe@example.com",
                 ProductSerialNumber = "123", // Invalid product serial number
-                IsOver18 = true
+                IsOver18 = "true"
             };
 
             // Act
@@ -50,7 +50,7 @@ namespace AcmeCorporationTests.UnitTests
                 LastName = "Doe",               // valid
                 Email = "john.doe@example.com", // valid
                 ProductSerialNumber = "456",    // valid
-                IsOver18 = true                 // valid
+                IsOver18 = "true"               // valid
             };
             var invalidSubmissionLastN = new SubmissionModel
             {
@@ -58,15 +58,15 @@ namespace AcmeCorporationTests.UnitTests
                 LastName = "",                  // invalid
                 Email = "john.doe@example.com", // valid
                 ProductSerialNumber = "456",    // valid
-                IsOver18 = true                 // valid
+                IsOver18 = "true"               // valid
             };
             var invalidSubmissionEmail = new SubmissionModel
             {
                 FirstName = "John",             // valid
                 LastName = "Doe",               // valid
                 Email = "",                     // invalid
-                ProductSerialNumber = "456",     // valid
-                IsOver18 = true                 // valid
+                ProductSerialNumber = "456",    // valid
+                IsOver18 = "true"               // valid
             };
 
             // Act
@@ -94,7 +94,7 @@ namespace AcmeCorporationTests.UnitTests
         public void SubmitForm_WithValidSubmission_ReturnsRedirectToActionResult()
         {
             // Arrange
-            
+
 
             var mockDbContext = new Mock<IApplicationDbContext>();
             var mockDbSet = new Mock<DbSet<SubmissionModel>>();
@@ -112,7 +112,7 @@ namespace AcmeCorporationTests.UnitTests
                 LastName = "Doe",
                 Email = "john.doe@example.com",
                 ProductSerialNumber = "b8aa8726-90f7-4772-bcb4-56e25738447e", // Valid product serial number
-                IsOver18 = true
+                IsOver18 = "true"
             };
 
             // Act
@@ -125,7 +125,7 @@ namespace AcmeCorporationTests.UnitTests
             // Verify that TempData has been set
             mockTempData.VerifySet(t => t["success"] = "Form was submitted successfully");
         }
-        
+
         [Fact]
         public async Task GetSubmissions_ReturnsJsonResultWithSubmissionData()
         {
@@ -136,12 +136,12 @@ namespace AcmeCorporationTests.UnitTests
             using (var context = new ApplicationDbContext(options))
             {
                 context.Submission.AddRange(
-                   new SubmissionModel { FirstName = "John", LastName = "Doe", Email = "john.doe@example.com", ProductSerialNumber = "456", IsOver18 = true },
-                   new SubmissionModel { FirstName = "Jane", LastName = "Smith", Email = "jane.smith@example.com", ProductSerialNumber = "789", IsOver18 = true }
-                );  
+                   new SubmissionModel { FirstName = "John", LastName = "Doe", Email = "john.doe@example.com", ProductSerialNumber = "456", IsOver18 = "true" },
+                   new SubmissionModel { FirstName = "Jane", LastName = "Smith", Email = "jane.smith@example.com", ProductSerialNumber = "789", IsOver18 = "true" }
+                );
                 context.SaveChanges();
             }
-            
+
 
             var dbContext = new ApplicationDbContext(options);
             var mockDrawManager = new Mock<IDrawManager>();
