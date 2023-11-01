@@ -18,7 +18,7 @@ namespace AcmeCorporationLibrary.Data
             GenerateInitialData(modelBuilder);
         }
 
-        private static void GenerateInitialData(ModelBuilder modelBuilder)
+        public static void GenerateInitialData(ModelBuilder modelBuilder)
         {
             // Generate and add the serial numbers to the database
             for (int i = 0; i < 100; i++)
