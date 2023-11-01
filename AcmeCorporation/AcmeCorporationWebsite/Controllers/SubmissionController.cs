@@ -45,9 +45,17 @@ namespace AcmeCorporationWebsite.Controllers
             {
                 ModelState.AddModelError("Email", "Email address is required");
             }
+            if (!string.IsNullOrEmpty(obj.IsOver18) && obj.IsOver18.ToLower() == "true")
+            {
+                obj.IsOver18 = "true";
+            }
+            else
+            {
+                ModelState.AddModelError("IsOver18", "You must be at least 18 years old.");
+            }
 
             // Validation for product serial number
-            
+
             if (!_drawManager.CheckAndUpdateSerialNumber(obj.ProductSerialNumber))
             {
                 ModelState.AddModelError("ProductSerialNumber", "The Product serial number is invalid");

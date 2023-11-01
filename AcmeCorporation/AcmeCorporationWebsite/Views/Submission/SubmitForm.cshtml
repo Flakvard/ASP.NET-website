@@ -4,7 +4,7 @@
 <p>
     To enter the draw for a chance to win a free trip to the Bahamas, simply fill out the form and submit it by the deadline.<br />
     You have to a valid serial number from purchasing one of Acme Corporation’s products and you must be at least 18 years old.<br />
-    A valid serial number can be used twice.Use this page to detail your site's privacy policy.
+    A valid serial number can be used twice.
 </p>
 <form method="post">
     <div class="border p-3 mt-4">
@@ -28,11 +28,16 @@
             <label asp-for="ProductSerialNumber"></label>
             <input asp-for="ProductSerialNumber" class="form-control" />
         </div>
+        <div class="form-check">
+            <input asp-for="IsOver18" class="form-check-input" data-val="true" data-val-required="You must be at least 18 years old." type="checkbox" id="IsOver18" name="IsOver18" />
+            <label asp-for="IsOver18" class="form-check-label">I agree to the terms and conditions and confirm that I am over 18 years old.</label>
+        </div>
         <button type="submit" class="btn btn-success" style="width:150px">Submit</button>
         <a asp-controller="Submission" asp-action="Index" class="btn btn-secondary" style="width:150px">
             Back to list
         </a>
     </div>
+ 
 </form>
 
 @section Scripts{
