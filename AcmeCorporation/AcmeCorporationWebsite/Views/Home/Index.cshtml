@@ -3,6 +3,55 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <h1></h1>
+    <p></p>
+    
+
+    <div class="card mb-3">
+        <h3 class="card-header alert alert-dismissible alert-info">Enter The Draw Competition!</h3>
+        <div class="card-body">
+            <h4 class="card-title">Chance of winning a trip to the Bahamas!</h4>
+        </div>
+        <div class="image-container">
+        <img src="~/Images/jakob-owens-h8T1Wa4u7oU-unsplash.jpg" alt="A stunning image of a pig swimming in the ocean, representing the draw competition for a trip to the Bahamas" style="width:100%; height:auto;">
+        </div>
+        <p style="text-align: center; font-style: italic; font-size: 12px;">Photo by <a href="@Html.Raw("https://unsplash.com/@jakobowens1?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash")">Jakob Owens</a> on <a href="https://unsplash.com/photos/pig-walking-on-body-of-water-during-day-h8T1Wa4u7oU?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></p>
+        <div class="card-body">
+            <p class="card-text">To enter the draw for a chance to win a free trip to the Bahamas, simply fill out the form and submit it by the deadline.</p>
+            <p class="card-text">You have to a valid serial number from purchasing one of Acme Corporation’s products and you must be at least 18 years old.</p>
+        </div>
+        <div class="d-grid gap-2 mb-1">
+            <a asp-controller="Submission" asp-action="SubmitForm" class="btn btn-lg btn-warning" role="button">Enter the draw</a>
+        </div>
+        <div class="card-footer text-muted">
+            Deadline: 18. November 2023
+        </div>
+    </div>
+
 </div>
+
+<style>
+    .image-container {
+        width: 100%;
+        height: 400px; /* Define your preferred height */
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .image-container img {
+        width: auto;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    body {
+        background-image: url('/Images/forest-simon-xa-fv2RQCPY-unsplash.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+</style>
