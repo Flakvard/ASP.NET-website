@@ -12,7 +12,8 @@ namespace AcmeCorporationTests.UnitTests
                 FirstName = "John",
                 LastName = "Doe",
                 Email = "john.doe@example.com",
-                ProductSerialNumber = "123" // Invalid product serial number
+                ProductSerialNumber = "123", // Invalid product serial number
+                IsOver18 = true
             };
 
             // Act
@@ -31,7 +32,8 @@ namespace AcmeCorporationTests.UnitTests
                 FirstName = "John",
                 LastName = "Doe",
                 Email = "john.doe@example.com",
-                ProductSerialNumber = "456" // Valid product serial number
+                ProductSerialNumber = "456", // Valid product serial number
+                IsOver18 = true
             };
 
             // Act

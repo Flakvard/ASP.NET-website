@@ -7,6 +7,7 @@ namespace AcmeCorporationLibrary.Data
     public interface IApplicationDbContext
     {
         DbSet<SubmissionModel> Submission { get; set; }
+        DbSet<SerialNumberModel> SerialNumbers { get; set; }
         int SaveChanges();
     }
 }

@@ -22,6 +22,8 @@ namespace AcmeCorporationLibrary.Models
         [Required]
         [DisplayName("Product serial number")]
         public required string ProductSerialNumber { get; set; }
+        [Required]
+        public required bool IsOver18 {  get; set; }
 
         public DateTime CreatedDateTime { get; set; } = DateTime.Now;
 

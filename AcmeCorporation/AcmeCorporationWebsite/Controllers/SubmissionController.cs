@@ -1,4 +1,5 @@
-﻿using AcmeCorporationLibrary.Data;
+﻿using AcmeCorporationLibrary.Business;
+using AcmeCorporationLibrary.Data;
 using AcmeCorporationLibrary.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,11 +9,12 @@ namespace AcmeCorporationWebsite.Controllers
     public class SubmissionController : Controller
     {
         private readonly IApplicationDbContext _db;
+        private readonly IDrawManager _drawManager;
 
-        public SubmissionController(IApplicationDbContext db)
+        public SubmissionController(IApplicationDbContext db, IDrawManager drawManager)
         {
             _db = db;
-            
+            _drawManager = drawManager;
         }
 
         public IActionResult Index()
@@ -44,8 +46,9 @@ namespace AcmeCorporationWebsite.Controllers
                 ModelState.AddModelError("Email", "Email address is required");
             }
 
-            // TODO: add custom validation for product serial number
-            if (obj.ProductSerialNumber == "123")
+            // Validation for product serial number
+            
+            if (!_drawManager.CheckAndUpdateSerialNumber(obj.ProductSerialNumber))
             {
                 ModelState.AddModelError("ProductSerialNumber", "The Product serial number is invalid");
             }
