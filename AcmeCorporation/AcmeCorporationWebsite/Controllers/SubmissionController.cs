@@ -8,6 +8,7 @@ namespace AcmeCorporationWebsite.Controllers
 {
     public class SubmissionController : Controller
     {
+        // Inject Database and DrawManager
         private readonly IApplicationDbContext _db;
         private readonly IDrawManager _drawManager;
 
@@ -54,7 +55,7 @@ namespace AcmeCorporationWebsite.Controllers
                 ModelState.AddModelError("IsOver18", "You must be at least 18 years old.");
             }
 
-            // Validation for product serial number
+            // Server validation for product serial number via IDrawManager injection
 
             if (!_drawManager.CheckAndUpdateSerialNumber(obj.ProductSerialNumber))
             {
@@ -62,6 +63,7 @@ namespace AcmeCorporationWebsite.Controllers
             }
             if (ModelState.IsValid)
             {
+                // Save to database via IApplicationDbContext injection
                 _db.Submission.Add(obj);
                 _db.SaveChanges();
                 TempData["success"] = "Form was submitted successfully";
@@ -70,6 +72,7 @@ namespace AcmeCorporationWebsite.Controllers
             return View(obj);
         }
         // AJAX get submissions
+        // List submissions in pagination of 10
         [HttpGet]
         public async Task<IActionResult> GetSubmissions(int page = 1, int pageSize = 10)
         {
